@@ -1,0 +1,5 @@
+tup = (20,40,30,70,90)
+print(tup)
+print(tup[1])
+#tup[3] = 15     immutale (cannot change)
+#print(tup)

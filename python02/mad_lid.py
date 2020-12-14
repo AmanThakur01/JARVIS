@@ -1,0 +1,6 @@
+colour = input("color name:")
+es = input("word having 'es' :" )
+name = input("celebrity name + U :")
+print("Roses are " + colour)
+print(es + " are blue")
+print("I love " +name)

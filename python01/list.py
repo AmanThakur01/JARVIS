@@ -1,0 +1,22 @@
+# it store data in []
+company = [ "redmi" , "Realme" , "Samsung" , "Micromax",  "Vivo", "Oppo" , "Apple" , "Asus" , "1+" , "techno" , "hp"]
+prefer = [1,2,3,4,5,6,7,8,9,0]
+name = input("enter single digit number :")
+print(company[int(name)])
+print(company)
+company.sort()
+company.insert(0,"Nokia")
+print(company)
+company.append("Spice")
+print(company)
+company.extend(prefer)
+print(company)
+company.pop()
+company.insert(1,1)
+print(company)
+print(company.count(1))
+company.remove(1)
+prefer.reverse()
+print(prefer)
+prefer1 = prefer.copy()
+print(company.get(name,"invalaid"))
