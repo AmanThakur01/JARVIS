@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e2eeaa13-8535-46e9-b2bd-064ae55825a2" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1bD0zC2Txgeoh5B6Ht9Cjjbw0Jm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RunManager" selected="Python.app_lib">
+    <configuration name="app_lib" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Library" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app_lib.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="bookService" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Library" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bookService.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.app_lib" />
+        <item itemvalue="Python.bookService" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e2eeaa13-8535-46e9-b2bd-064ae55825a2" name="Default Changelist" comment="" />
+      <created>1588151616430</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588151616430</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1259" height="614" key="GridCell.Tab.0.bottom" timestamp="1588358083874">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="1259" height="614" key="GridCell.Tab.0.bottom/0.24.1366.714@0.24.1366.714" timestamp="1588358083874" />
+    <state width="1259" height="614" key="GridCell.Tab.0.center" timestamp="1588358083873">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="1259" height="614" key="GridCell.Tab.0.center/0.24.1366.714@0.24.1366.714" timestamp="1588358083873" />
+    <state width="1259" height="614" key="GridCell.Tab.0.left" timestamp="1588358083872">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="1259" height="614" key="GridCell.Tab.0.left/0.24.1366.714@0.24.1366.714" timestamp="1588358083872" />
+    <state width="1259" height="614" key="GridCell.Tab.0.right" timestamp="1588358083873">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="1259" height="614" key="GridCell.Tab.0.right/0.24.1366.714@0.24.1366.714" timestamp="1588358083873" />
+    <state width="433" height="293" key="GridCell.Tab.1.bottom" timestamp="1588340393755">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="433" height="293" key="GridCell.Tab.1.bottom/0.24.1366.714@0.24.1366.714" timestamp="1588340393755" />
+    <state width="433" height="293" key="GridCell.Tab.1.center" timestamp="1588340393754">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="433" height="293" key="GridCell.Tab.1.center/0.24.1366.714@0.24.1366.714" timestamp="1588340393754" />
+    <state width="433" height="293" key="GridCell.Tab.1.left" timestamp="1588340393753">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="433" height="293" key="GridCell.Tab.1.left/0.24.1366.714@0.24.1366.714" timestamp="1588340393753" />
+    <state width="433" height="293" key="GridCell.Tab.1.right" timestamp="1588340393754">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="433" height="293" key="GridCell.Tab.1.right/0.24.1366.714@0.24.1366.714" timestamp="1588340393754" />
+    <state x="177" y="24" key="SettingsEditor" timestamp="1588247295415">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state x="177" y="24" key="SettingsEditor/0.24.1366.714@0.24.1366.714" timestamp="1588247295415" />
+    <state width="498" height="448" key="SwitcherDM" timestamp="1588342956956">
+      <screen x="0" y="24" width="1366" height="714" />
+    </state>
+    <state width="498" height="448" key="SwitcherDM/0.24.1366.714@0.24.1366.714" timestamp="1588342956956" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Book.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bookService.py</url>
+          <line>67</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bookService.py</url>
+          <line>69</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bookService.py</url>
+          <line>185</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bookService.py</url>
+          <line>206</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
