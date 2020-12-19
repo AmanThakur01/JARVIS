@@ -456,7 +456,7 @@ def brain(usr_command):
                 return 1
             elif usr_command.find("news") >= 0 or usr_command.find("headlines") >= 0:
                 j.speak("How many headlines you want to know.")
-                lineNum = speechRecog.take_command(1)
+                lineNum = int(input("Enter number of lines : "))
                 news.newsOf(lineNum)
                 return 0
             elif usr_command.find("toss") & usr_command.find("coin") >= 0:
