@@ -136,7 +136,7 @@ def brain(usr_command):
                 else:
                     j.speak("how many song you want to listen")
                     songNumber = int(input("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tEnter value : "))
-                    playlist.playlist("/media/aman/Disk/music/*.mp3",songNumber)
+                    playlist.playlist("/home/aman/Music/*.mp3",songNumber)
                 # except:
                 #     print(Exception)
                 #     usr_command = usr_command.replace("play", "")
@@ -146,7 +146,7 @@ def brain(usr_command):
 
             elif "playlist" in usr_command:
                 print("Playing...")
-                playlist.playlist(ipath="/media/aman/Disk/music/*.mp3",ival=None)
+                playlist.playlist(ipath="/home/aman/Music/*.mp3",ival=None)
 
                 return 0
             else:
@@ -258,7 +258,7 @@ def brain(usr_command):
                 j.speak("Opening skype ...")
                 class t14(Thread):
                     def run(self):
-                        sky = subprocess.Popen("skypeforlinux")
+                        sky = subprocess.Popen("/snap/skype/161/usr/share/skypeforlinux/skypeforlinux")
                         stop.skype(sky, 1)
 
                 o14 = t14()
@@ -336,13 +336,18 @@ def brain(usr_command):
                 subprocess.Popen("/usr/bin/gnome-session-quit")
                 j.speak("Are you ..sure...")
                 return 0
-            elif "system software" in usr_command or "ubuntu center" in usr_command:
-                subprocess.Popen("/usr/bin/gnome-software")
-                j.speak("This is all about...softwares")
+            elif "todo" in usr_command :
+                subprocess.Popen("/usr/bin/gnome-todo")
+                j.speak("This is all about...TODO")
                 return 0
+            elif "properties" in usr_command :
+                subprocess.Popen("/usr/bin/gnome-session-properties")
+                j.speak("This is all about...Properties")
+                return 0
+
             elif "system setting" in usr_command:
                 j.speak("opening setting")
-                subprocess.Popen("/usr/bin/system-settings")
+                subprocess.Popen("/usr/bin/gnome-control-center")
                 return 0
             elif usr_command.find("system monitor") >= 0:
                 j.speak("Opening system-monitor...")
@@ -388,7 +393,7 @@ def brain(usr_command):
                 o9 = t9()
                 o9.start()
                 return 0
-            elif "stop" in usr_command or "quite" in usr_command or "don't talk" in usr_command:
+            elif "mute" in usr_command or "quite" in usr_command or "don't talk" in usr_command:
                 j.speak("press key to wake me...")
                 x= input()
                 return 0
@@ -404,14 +409,14 @@ def brain(usr_command):
 
             elif usr_command.find("pycharm") >= 0:
                 j.speak("Opening Pycharm...")
-                pycm = subprocess.Popen("/snap/pycharm-community/211/bin/pycharm.sh")
+                pycm = subprocess.Popen("/snap/pycharm-community/222/bin/pycharm.sh")
                 stop.pycharm(pycm,1)
                 return 0
 
-            elif "download" in usr_command:
-                j.speak("Opening Downloads...")
-                return 0
-                down = subprocess.Popen("/home/aman/Downloads/")
+            # elif "download" in usr_command:
+            #     j.speak("Opening Downloads...")
+            #     return 0
+            #     down = subprocess.Popen("/home/aman/Downloads/")
 
             elif usr_command.find("netbeans") >= 0:
                 j.speak("Opening Netbeans...")
@@ -481,10 +486,8 @@ def brain(usr_command):
             else:
                 j.speak("Sorry! didn't find any answer in my system");return 0
     except TypeError :
+        j.speak("Sorry! Try Something else.")
         print("ERROR "+TypeError)
-        return 0
-    except Exception :
-        print("ERROR "+Exception)
         return 0
     finally:store(usr_command)
 

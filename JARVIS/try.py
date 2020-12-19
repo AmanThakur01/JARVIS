@@ -205,7 +205,6 @@
 #     distance -= 5
 #     pyautogui.drag(0, -distance, duration=0.5)  # move up
 
+import subprocess
+sky = subprocess.Popen("/snap/pycharm-community/222/bin/pycharm.sh")
 
-# from subprocess import call
-# call(["amixer", "-D", "pulse", "sset", "Master", "90%"])
-print("hrlk")

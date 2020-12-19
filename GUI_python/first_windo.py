@@ -1,7 +1,3 @@
-'''now we will see the commeted changes in git hub'''
-
-
-
 from tkinter import *
 import glob
 import os
@@ -15,7 +11,6 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import imageio
 
-player = vlc.MediaPlayer()
 nextSong=0
 index = 0
 musicNo=True
@@ -25,85 +20,83 @@ addedSongList=[]
 randomBoolen=False
 indexRandom=0
 addSongIndex=0
+player = vlc.MediaPlayer()
+manuallst=[]
 def playBack():
     global player,fileName,timeformat,obj,musicNo,duration,t1
-    if player.is_playing()!=1 and musicNo:
-        playButton.configure(image=pausePhoto)
+    try:
+        if player.is_playing()!=1 and musicNo:
+            playButton.configure(image=pausePhoto)
 
-        class playlist(Thread):
-            def run(self):
-                global player,nextSong,index,timeformat,musicNo,duration,cutoff,t1,songList,manuallst,addedSongList
-                path = "/media/aman/Disk/music/*.mp3"
-                lst = glob.glob(path)
-                index=0
-                # if songList.curselection():
-                #     songName=songList.curselection()
-                #     songIndex=int(songName[0])
-                #     actualPath=addedSongList[songIndex]
-                #     player=vlc.MediaPlayer(actualPath)
-                #     player.play()
-                #     player.audio_set_volume(50)
-                # else:
-                if randomBoolen:
-                    manuallst=lst#[:]
-                elif len(addedSongList)==0:
-                    km.showerror("JARVIS 'ERROR'","Playlist EMPTY,Please select song or play randomly")
-                else:
-                    manuallst=addedSongList#[:]
-                for i in manuallst:
-                    if nextSong>1:
-                        nextSong=nextSong-1
-                        index = index + 1
-                        continue
-                    elif musicNo!=True:
-                        break
-                    elif len(addedSongList) == 0 and randomBoolen!=True:
-                        break
-                    elif songList.curselection():
-                        songName=songList.curselection()
-                        songIndex=int(songName[0])
-                        actualPath=addedSongList[songIndex]
-                        player=vlc.MediaPlayer(actualPath)
-                        player.play()
-                        player.audio_set_volume(50)
+            class playlist(Thread):
+                def run(self):
+                    global player,nextSong,index,timeformat,musicNo,duration,cutoff,t1,songList,manuallst,addedSongList
+                    path = "/home/aman/Music/*.mp3"
+                    lst = glob.glob(path)
+                    # print(lst)
+                    index=0
+                    if len(addedSongList) != 0:
+                        manuallst = addedSongList  # [:]
+                    elif randomBoolen:
+                        manuallst=lst#[:]
                     else:
-                        musicNo = False
-                        player = vlc.MediaPlayer(i)
-                        player.play()
-                        if index==0:
+                        km.showerror("JARVIS 'ERROR'","Playlist EMPTY,Please select song or play randomly")
+                    for i in manuallst:
+                        if nextSong>1:
+                            nextSong=nextSong-1
+                            index = index + 1
+                            continue
+                        elif musicNo!=True:
+                            break
+                        elif len(addedSongList) == 0 and randomBoolen!=True:
+                            break
+                        elif songList.curselection():
+                            songName=songList.curselection()
+                            songIndex=int(songName[0])
+                            actualPath=addedSongList[songIndex]
+                            player=vlc.MediaPlayer(actualPath)
+                            player.play()
                             player.audio_set_volume(50)
-                        else:pass
-                        index = index+1
-                        statusBar['text'] = "Music Playing" + " " + os.path.basename(i)
-                        time.sleep(1)
-                        duration=int(player.get_length()/1000)
-                        min,secs=divmod(duration,60)
-                        round(min),round(secs)
-                        timeformat = "{}:{}".format(min,secs)
-                        musicLength['text'] = ("Total length is " + timeformat)
-                        global t1
-                        cutoff = 10
-                        t1 = newThread()
-                        t1.start()
-                    # elif songList.curselection():
-                    #     songName=songList.curselection()
-                    #     songIndex=int(songName[0])
-                    #     actualPath=addedSongList[songIndex]
-                    #     player=vlc.MediaPlayer(actualPath)
-                    #     player.play()
-                    #     player.audio_set_volume(50)
-                    # else:
-                    #     #popup
-                    #     pass
+                        else:
+                            musicNo = False
+                            player = vlc.MediaPlayer(i)
+                            player.play()
+                            if index==0:
+                                player.audio_set_volume(50)
+                            else:pass
+                            index = index+1
+                            statusBar['text'] = "Music Playing" + " " + os.path.basename(i)
+                            time.sleep(1)
+                            duration=int(player.get_length()/1000)
+                            min,secs=divmod(duration,60)
+                            round(min),round(secs)
+                            timeformat = "{}:{}".format(min,secs)
+                            musicLength['text'] = ("Total length is " + timeformat)
+                            global t1
+                            cutoff = 10
+                            t1 = newThread()
+                            t1.start()
+                        # elif songList.curselection():
+                        #     songName=songList.curselection()
+                        #     songIndex=int(songName[0])
+                        #     actualPath=addedSongList[songIndex]
+                        #     player=vlc.MediaPlayer(actualPath)
+                        #     player.play()
+                        #     player.audio_set_volume(50)
+                        # else:
+                        #     #popup
+                        #     pass
 
-        obj=playlist()
-        obj.start()
+            obj=playlist()
+            obj.start()
 
-    else:
-        playButton.configure(image=playPhoto)
-        player.pause()
-        statusBar['text'] = "Music Paused"
-        musicNo=False
+        else:
+            playButton.configure(image=playPhoto)
+            player.pause()
+            statusBar['text'] = "Music Paused"
+            musicNo=False
+    except :
+        km.showerror("JARVIS ERROR", "player not selected")
 
 class newThread(Thread):
     def run(self):
@@ -177,8 +170,7 @@ def backwardPlay():
     playBack()
 
 def crossButton():
-    if km.showinfo("JARVIS : Alert!!!","Are you closing JARVIS Player window"):
-        player.stop()
+    if km.showinfo("JARVIS : Alert!!!","Are you closing JARVIS Player"):
         root.destroy()
     else:pass
 
