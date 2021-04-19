@@ -166,16 +166,16 @@
 #     time.sleep(duration)
 #     index=-1
 # from JARVIS import jarvisVoice as j
-# j.jspeak.speak("hello thi is mic testing")
+# j.JarvisSpeak.speak("hello thi is mic testing")
 # j.newVol = int(j.newVol + int(9))
 # j.engine.setProperty('volume', j.newVol)
 #
-# j.jspeak.speak("hello thi is mic testing")
+# j.JarvisSpeak.speak("hello thi is mic testing")
 # # newVol = input("enter")
 # j.newVol = int(j.newVol + int(9))
 # # engine.setProperty('volume', newVol)
 #
-# j.jspeak.speak("hello thi is mic testing")
+# j.JarvisSpeak.speak("hello thi is mic testing")
 # import subprocess
 
 # import vlc
@@ -205,6 +205,18 @@
 #     distance -= 5
 #     pyautogui.drag(0, -distance, duration=0.5)  # move up
 
-import subprocess
-sky = subprocess.Popen("/snap/pycharm-community/222/bin/pycharm.sh")
 
+import pyttsx3
+
+engine = pyttsx3.init('espeak')
+voices = engine.getProperty('voices')
+# pyttsx3.engine.Engine.getProperty('gender')
+# pyttsx3.engine.Engine.setProperty(,'gender','female')
+rate = engine.getProperty("rate")
+# engine.setProperty("voice", voices[67].id)
+engine.setProperty('voice', 'english+f2')
+engine.setProperty("rate", 130)#140
+newVol = 11
+
+engine.say("this is me always for you from engine import Engine ModuleNotFoundError: No module named 'engine")
+engine.runAndWait()

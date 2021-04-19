@@ -43,7 +43,7 @@ import numpy as np
 # img=cv2.imread("girl_face.jpg")
 # print(img.shape)# output--->(hight,length,RBG)
 # resizeimg=cv2.resize(img,(700,517))#(length,height)
-# imgcroped=img[0:10,790:870]#(heioght:width)
+# imgcroped=img[0:10,790:870]#(height:width)
 # cv2.imshow("output image",img)
 # cv2.imshow("output image crop",imgcroped)
 # # cv2.imshow("output image2",resizeimg)

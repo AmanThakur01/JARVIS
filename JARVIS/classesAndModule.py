@@ -5,21 +5,26 @@ import datetime
 import re
 from playsound import playsound
 import smtplib
-from JARVIS.idList import pwd,gmail
+from JARVIS.idList import pwd, gmail
 from JARVIS.speechRecog import speechRecog
-from JARVIS.jarvisVoice import jspeak as j
-global cmd , index , alarmsec
+from JARVIS.jarvisVoice import JarvisSpeak as j
+
+global cmd, index, alarmsec
 import json
 import requests
 import glob
 import random
 import vlc
+
+
 # from JARVIS.closeModule import stop
 
 class Alarm():
+    @staticmethod
     def setAlarm(i):
         global cmd, index, alarmsec
         cmd = i
+
         class t6(Thread):
             def run(self):
                 global cmd, index, alarmsec
@@ -29,29 +34,32 @@ class Alarm():
                 dateStr = str(dateStr)
                 dateStr = dateStr[11:]
                 dateStr = dateStr.split(":")
-                timeList = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,
-                            0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+                timeList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+                            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                 hourNow = int(datetime.datetime.now().hour)
                 if int(dateStr[0]) == hourNow:
-                    alarmsec = (int(dateStr[1]) - int(datetime.datetime.now().minute))*60
+                    alarmsec = (int(dateStr[1]) - int(datetime.datetime.now().minute)) * 60
                 else:
-                    alarmsec = (int(dateStr[1])*60)
+                    alarmsec = (int(dateStr[1]) * 60)
                 newTimeList = timeList[hourNow:]
-                index=0
+                index = 0
                 for i in newTimeList:
                     if i == int(dateStr[0]):
                         break
-                    index = index +1
-                alarmSecHour = index*60*60
-                time.sleep(alarmsec+alarmSecHour-3)
+                    index = index + 1
+                alarmSecHour = index * 60 * 60
+                time.sleep(alarmsec + alarmSecHour - 3)
                 playsound("brownrang.mp3")
                 time.sleep(30)
                 playsound.stop()
+
         o6 = t6()
         o6.start()
         return 0
 
+
 class sendMail:
+    @staticmethod
     def sendProcess(to):
         try:
             j.speak("what is content")
@@ -68,6 +76,7 @@ class sendMail:
             j.speak("Try again")
         return 0
 
+    @staticmethod
     def sendGmail(usr_command):
         mail = []
         splitedList = re.split("\s", usr_command)
@@ -95,7 +104,9 @@ class sendMail:
             sendMail.sendProcess(to)
         return 0
 
+
 class news:
+    @staticmethod
     def newsOf(num):
         try:
             j.speak("News Of Today")
@@ -115,16 +126,19 @@ class news:
             print("Please check your internet connection!")
         return 0
 
+
 class playlist():
-    def playlist(ipath,ival):
-        global t11,path,val
+    @staticmethod
+    def playlist(ipath, ival):
+        global t11, path, val
         path = ipath
         val = ival
+
         class t11(Thread):
             def run(self):
-                global val,path
+                global val, path
                 # print(glob.glob(path))
-                lst=glob.glob(path)
+                lst = glob.glob(path)
                 if val != None:
                     # index = int(speechRecog.take_command(self=None))
                     while 0 < val:

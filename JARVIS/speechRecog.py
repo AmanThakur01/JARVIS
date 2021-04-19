@@ -1,5 +1,7 @@
 import speech_recognition as sr
-from JARVIS.jarvisVoice import jspeak as j
+from JARVIS.jarvisVoice import JarvisSpeak as j
+
+
 class speechRecog:
     def take_command(self):
         j.speak("listening")
@@ -8,7 +10,7 @@ class speechRecog:
                 # print(1/0)
                 r = sr.Recognizer()
                 with sr.Microphone() as source2:
-                    r.adjust_for_ambient_noise(source2)#, duration=0.2
+                    r.adjust_for_ambient_noise(source2)  # , duration=0.2
                     print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tNow.....")
                     audio2 = r.listen(source2)
                     usr_command = r.recognize_google(audio2)
