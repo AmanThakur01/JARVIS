@@ -24,4 +24,4 @@ if __name__ == "__main__":
     arts = news_dect["articles"]
     for article in arts:
         speak(article["title"])
-        speak("Our next news is")
+        speak("Our next News is")

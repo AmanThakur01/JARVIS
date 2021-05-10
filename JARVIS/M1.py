@@ -1,4 +1,11 @@
 import datetime
+import os
+import time
+import PyPDF2
+import instaloader
+######GUI
+
+#######
 from JARVIS.closeModule import stop
 import subprocess
 import requests
@@ -7,11 +14,12 @@ import wikipedia
 import webbrowser
 from vlc import MediaPlayer
 from threading import Thread
-from JARVIS.classesAndModule import Alarm, sendMail, news, playlist
+from JARVIS.classesAndModule import Alarm, sendMail, News, playlist
 from JARVIS.jarvisVoice import JarvisSpeak as j
 # import speech_recognition as sr
 from JARVIS.speechRecog import speechRecog
 import pyautogui
+import pywhatkit as kit
 
 old_cmd = ""
 nameInt = 0
@@ -108,8 +116,8 @@ def brain(usr_command):
             elif "date" in usr_command:
                 j.speak("Today is " + datetime.datetime.now().strftime("%d %B %Y"))
                 return 0
-            elif "news" in usr_command:
-                news.newsOf(5)
+            elif "News" in usr_command:
+                News.news_of(5)
                 return 0
         elif "play" in usr_command:
             if usr_command.find("online") >= 0:
@@ -124,7 +132,7 @@ def brain(usr_command):
                 o7 = Thread7()
                 o7.start()
                 return 0
-            elif usr_command.find("youtube") >= 0 and usr_command.find("music") >= 0:
+            elif usr_command.find("youtube") >= 0:
                 j.speak("Playing music...")
                 usr = usr_command.replace("play", "")
                 usr = usr.replace("music", "")
@@ -132,7 +140,7 @@ def brain(usr_command):
 
                 class Thread17(Thread):
                     def run(self):
-                        webbrowser.open("https://music.youtube.com/search?q=" + usr)
+                        kit.playonyt(usr)
 
                 o17 = Thread17()
                 o17.start()
@@ -246,6 +254,12 @@ def brain(usr_command):
                 o18 = Thread18()
                 o18.start()
                 return 0
+            elif usr_command.find("switch") >= 0 and (usr_command.find("tab") >= 0 or "window" in usr_command):
+                pyautogui.keyDown('alt')
+                pyautogui.press('tab')
+                time.sleep(0.5)
+                pyautogui.keyUp('alt')
+                return 0
 
             elif "libreoffice" in usr_command or "text writer" in usr_command:
                 j.speak("Opening Libreoffice ...")
@@ -302,7 +316,28 @@ def brain(usr_command):
                 o11 = Thread11()
                 o11.start()
                 return 0
+            elif usr_command.find("instagram") >= 0 or usr_command.find("insta") >= 0:
+                j.speak("Sir Please enter User name correctly :")
+                name = input()
 
+                j.speak("Sir this is Your Profile")
+
+                class Thread18(Thread):
+                    def run(self):
+                        webbrowser.open(f"www.instagram.com/{name}")
+                        # stop.chrome(g, 1)
+
+                o18 = Thread18()
+                o18.start()
+                j.speak("Sir would you like to download the profile picture")
+                cmd = speechRecog.take_command()
+                if cmd == "yes":
+                    mod = instaloader.Instaloder()
+                    mod.download_profile(name, profile_pic_only=True)
+                    j.speak("Profile pic is downloaded in your default folder")
+                else:
+                    j.speak("Ok sir")
+                return 0
             elif "firefox" in usr_command or "mozilla" in usr_command:
                 j.speak("Opening mozilla firefox ...")
 
@@ -314,6 +349,19 @@ def brain(usr_command):
                 o15 = Thread15()
                 o15.start()
                 return 0
+            elif "read pdf" in usr_command:
+                book = open('/home/aman/Documents/Assignment-210329-183610.pdf', 'rb')
+                pdf_read = PyPDF2.PdfFileReader(book)
+                pages = pdf_read.getNumPages()
+                j.speak(f"PDF contain {pages} Number of pages")
+                j.speak("Sir ,Please enter page number which I want to read")
+                pg = int(input("Enter hear:"))
+                page = pdf_read.getPage(pg)
+                text = page.extractText()
+                # j.speak(text)
+                print(text.encode('utf-8'))
+                return 0
+
             elif "gedit" in usr_command or "text editor" in usr_command:
                 j.speak("Opening gedit text editor ...")
 
@@ -337,11 +385,25 @@ def brain(usr_command):
                 o5 = Thread5()
                 o5.start()
                 return 0
-            elif "send gmail" in usr_command or "send email" in usr_command or "send mail" in usr_command:
+            elif "send" in usr_command and ("send gmail" in usr_command or "send email" in usr_command
+                                            or "send mail" in usr_command or usr_command.find("file") >= 0):
                 sendMail.sendGmail(usr_command)
                 return 0
+
             # elif "thread" in usr_command:
             #     # Thread1.is_alive()
+
+            # kit.text_to_handwriting()
+            # pywhatkit.shutdown(time=100)  # Will shutdown the system
+            # pywhatkit.showHistory()
+            # pywhatkit.cancelShutdown()  # Will cancel the scheduled shutdown
+            # kit.playonyt()
+
+            elif ("whatsapp" or "message" and "send") in usr_command:
+                kit.sendwhatmsg(f"+91{7067947814}", "hello this is me", 12, 50)
+                j.speak("Message will send shortly")
+                return 0
+
             elif "alarm" in usr_command:
                 Alarm.setAlarm(usr_command)
                 j.speak("ok i will notify you")
@@ -486,10 +548,10 @@ def brain(usr_command):
                 j.speak("Bye Sir")
                 j.speak("Hope you enjoyed!")
                 return 1
-            elif usr_command.find("news") >= 0 or usr_command.find("headlines") >= 0:
+            elif usr_command.find("News") >= 0 or usr_command.find("headlines") >= 0:
                 j.speak("How many headlines you want to know.")
                 line_num = int(input("Enter number of lines : "))
-                news.newsOf(line_num)
+                News.news_of(line_num)
                 return 0
             elif usr_command.find("toss") & usr_command.find("coin") >= 0:
                 lst = ["HEADS", "TAILS"]
@@ -513,6 +575,18 @@ def brain(usr_command):
                     if i.isnumeric(): num1 = (float(i) - num1)
                 j.speak(num1)
                 return 0
+            elif usr_command.find("location") >= 0 or usr_command.find("where i am") >= 0:
+                j.speak("Wait sir, let me check")
+                ip_add = requests.get('https://api.ipify.org').text
+                url = 'https://get.geojs.io/v1/ip/geo/' + ip_add + ".json"
+                geo_requests = requests.get(url)
+                geo_data = geo_requests.json()
+                city = geo_data['city']
+                # state=geo_data['state']
+                country = geo_data['country']
+                j.speak(f"If i am not wrong, then you are in  .{city}. {country}")
+                return 0
+
             elif usr_command.find("multiply") >= 0 or usr_command.find("*") >= 0:
                 sp_list = usr_command.split(" ")
                 num1 = 1.0
@@ -546,3 +620,5 @@ if __name__ == "__main__":
         usr_command = usrObj.take_command()
         terminate = brain(usr_command)
         continue
+# thanks jarvis
+# you can sleep

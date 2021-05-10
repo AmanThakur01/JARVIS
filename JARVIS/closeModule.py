@@ -4,138 +4,123 @@ from JARVIS.jarvisVoice import JarvisSpeak as j
 
 class stop:
 
-    @staticmethod
-    def calculator(cal, i):
+    @classmethod
+    def calculator(cls, cal, i):
         if i == 1:
-            global calcu
-            calcu = cal
+            cls.calcu = cal
         else:
-            calcu.terminate()
+            cls.calcu.terminate()
             j.speak("calculator closed")
 
-    @staticmethod
-    def calendar(cal, i):
+    @classmethod
+    def calendar(cls, cal, i):
         if i == 1:
-            global calen
-            calen = cal
+            cls.calen = cal
         else:
-            calen.terminate()
+            cls.calen.terminate()
             j.speak("calendar closed")
 
-    @staticmethod
-    def terminal(cal, i):
+    @classmethod
+    def terminal(cls, cal, i):
         if i == 1:
-            global termi
-            termi = cal
+            cls.termi = cal
         else:
-            termi.terminate()
+            cls.termi.terminate()
             j.speak("terminal closed")
 
-    @staticmethod
-    def chrome(cal, i):
+    @classmethod
+    def chrome(cls, cal, i):
         if i == 1:
-            global stp
-            stp = cal
+            cls.stp = cal
         else:
-            stp.terminate()
+            cls.stp.terminate()
             j.speak("google chrome closed")
 
-    @staticmethod
-    def stopPlaylist(cal, i):
+    @classmethod
+    def stopPlaylist(cls, cal, i):
         if i == 1:
-            global plalst
-            plalst = cal
+            cls.plalst = cal
         else:
-            playlist.t11.kill()
+            playlist.o11.kill()
             j.speak("killed")
 
-    @staticmethod
-    def monitor(cal, i):
+    @classmethod
+    def monitor(cls, cal, i):
         if i == 1:
-            global moni
-            moni = cal
+            cls.moni = cal
         else:
-            moni.terminate()
+            cls.moni.terminate()
             j.speak("system monitor closed")
 
-    @staticmethod
-    def office(cal, i):
+    @classmethod
+    def office(cls, cal, i):
         if i == 1:
-            global writer
-            writer = cal
+            cls.writer = cal
         else:
-            writer.terminate()
+            cls.writer.terminate()
             j.speak("libreoffice writer closed")
 
-    @staticmethod
-    def vscode(cal, i):
+    @classmethod
+    def vscode(cls, cal, i):
         if i == 1:
-            global vs
-            vs = cal
+            cls.vs = cal
 
         else:
-            vs.terminate()
+            cls.vs.terminate()
             j.speak("VisualStudio code closed")
 
-    @staticmethod
-    def steam(cal, i):
+    @classmethod
+    def steam(cls, cal, i):
         if i == 1:
-            global stm
-            stm = cal
+            cls.stm = cal
         else:
-            stm.terminate()
+            cls.stm.terminate()
             j.speak("steam closed")
 
-    @staticmethod
-    def pycharm(cal, i):
+    @classmethod
+    def pycharm(cls, cal, i):
         if i == 1:
-            global pchm
-            pchm = cal
+            cls.pchm = cal
         else:
-            pchm.terminate()
+            cls.pchm.terminate()
             j.speak("pycharm closed")
 
-    @staticmethod
-    def netbeans(cal, i):
+    @classmethod
+    def netbeans(cls, cal, i):
         if i == 1:
-            global net
-            net = cal
+            cls.net = cal
         else:
-            net.terminate()
+            cls.net.terminate()
             j.speak("netbeans closed")
 
-    @staticmethod
-    def skype(cal, i):
+    @classmethod
+    def skype(cls, cal, i):
         if i == 1:
-            global sky
-            sky = cal
+            cls.sky = cal
         else:
-            sky.terminate()
+            cls.sky.terminate()
             j.speak("skype closed")
 
-    @staticmethod
-    def telegram(cal, i):
+    @classmethod
+    def telegram(cls, cal, i):
         if i == 1:
-            global tele
-            tele = cal
+            cls.tele = cal
         else:
-            tele.terminate()
+            cls.tele.terminate()
             j.speak("telegram closed")
 
-    @staticmethod
-    def firfox(cal, i):
+    @classmethod
+    def firfox(cls, cal, i):
         if i == 1:
-            global fir
-            fir = cal
+            cls.fir = cal
         else:
-            fir.terminate()
+            cls.fir.terminate()
             j.speak("mozilla firfox closed")
 
-    @staticmethod
-    def gedit(cal, i):
+    @classmethod
+    def gedit(cls, cal, i):
         if i == 1:
-            global edit
-            edit = cal
+            cls.edit = cal
         else:
-            edit.terminate()
+            cls.edit.terminate()
             j.speak("gedit text editor closed")

@@ -1,7 +1,7 @@
 # sound = pyglet.resource.media('brownrang.mp3', streaming=True)
-            # sound.play()
-            # pyglet.app.run()
-            # time.sleep(10)
+# sound.play()
+# pyglet.app.run()
+# time.sleep(10)
 
 # usr_command = "hello"
 # path = "/home/aman/Downloads"+usr_command
@@ -9,9 +9,9 @@
 # import json
 # import requests
 # url = "http://api.openweathermap.org/data/2.5/weather?q=bhopal&appid=ef831cc525f939c8eb6824aa48c69c82"
-# news = requests.get(url).json()
-# # news_dect = json.loads(news)
-# arts = news["weather"][0]["main"]
+# News = requests.get(url).json()
+# # news_dect = json.loads(News)
+# arts = News["weather"][0]["main"]
 # print(arts)
 # index = 0
 # for article in arts:
@@ -205,18 +205,26 @@
 #     distance -= 5
 #     pyautogui.drag(0, -distance, duration=0.5)  # move up
 
-
-import pyttsx3
-
-engine = pyttsx3.init('espeak')
-voices = engine.getProperty('voices')
-# pyttsx3.engine.Engine.getProperty('gender')
-# pyttsx3.engine.Engine.setProperty(,'gender','female')
-rate = engine.getProperty("rate")
-# engine.setProperty("voice", voices[67].id)
-engine.setProperty('voice', 'english+f2')
-engine.setProperty("rate", 130)#140
-newVol = 11
-
-engine.say("this is me always for you from engine import Engine ModuleNotFoundError: No module named 'engine")
-engine.runAndWait()
+# import speech_recognition as sr  # convert speech to text
+# import datetime  # for fetching date and time
+# import wikipedia
+# import webbrowser
+# import requests
+# import playsound  # to play saved mp3 file
+# from gtts import gTTS  # google text to speech
+# import os  # to save/open files
+# # import wolframalpha  # to calculate strings into formula
+# # from selenium import webdriver  # to control browser operations
+#
+#
+# def respond(output):
+#     print(output)
+#     response = gTTS(text=output, lang='en-in')
+#     file = "response.mp3"
+#     response.save(file)
+#     playsound.playsound(file, True)
+#     os.remove(file)
+#
+# respond("hello this is me your personal assistant")
+import datetime
+print(datetime.datetime.now().strftime("%d %B %Y"))

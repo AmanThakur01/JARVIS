@@ -1,13 +1,19 @@
+import os.path
 from threading import Thread
 import datefinder
 import time
 import datetime
 import re
+
+from future.backports.email import encoders
+from future.backports.email.mime.base import MIMEBase
+from future.backports.email.mime.text import MIMEText
 from playsound import playsound
 import smtplib
 from JARVIS.idList import pwd, gmail
 from JARVIS.speechRecog import speechRecog
 from JARVIS.jarvisVoice import JarvisSpeak as j
+from future.backports.email.mime.multipart import MIMEMultipart
 
 global cmd, index, alarmsec
 import json
@@ -18,7 +24,7 @@ import vlc
 
 
 # from JARVIS.closeModule import stop
-
+usr_obj = speechRecog()
 class Alarm():
     @staticmethod
     def setAlarm(i):
@@ -60,18 +66,57 @@ class Alarm():
 
 class sendMail:
     @staticmethod
-    def sendProcess(to):
-        try:
-            j.speak("what is content")
-            content = speechRecog.take_command(self=None)
+    #/home/aman/Pictures/chart.jpeg
+    def sendProcess(to, file):
+        def server_connection(content):
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.ehlo()
             server.starttls()
             server.login(gmail, pwd)
             server.sendmail(gmail, to, content)
             server.close()
-            j.speak("Gmail is sended")
-        except:
+            j.speak("Gmail is sent")
+
+        try:
+            if file == 1:
+                j.speak("what is the Message for this File")
+                message = usr_obj.take_command()
+
+                msg = MIMEMultipart()
+                msg['From'] = gmail
+                msg['To'] = to
+                msg['Subject'] = "A File From JARVIS"
+                msg.attach(MIMEText(message, 'plain'))
+                j.speak("Please Enter File Location :")
+                file_location = input()
+                filename = os.path.basename(file_location)
+                attachment = open(file_location, 'rb')
+                part = MIMEBase("application", 'octet-stream')
+                part.set_payload(attachment.read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition', 'attachment; filename="%s"'% filename)
+                msg.attach(part)
+                text=msg.as_string()
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.ehlo()
+                server.starttls()
+                server.login(gmail, pwd)
+                server.sendmail(gmail, to, text)
+                server.close()
+                j.speak("Gmail is sent")
+
+            else:
+                j.speak("what is content")
+                content = usr_obj.take_command()
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.ehlo()
+                server.starttls()
+                server.login(gmail, pwd)
+                server.sendmail(gmail, to, content)
+                server.close()
+                j.speak("Gmail is sent")
+        except Exception as ex:
+            print(ex)
             j.speak("sorry,Email is not sent")
             j.speak("Try again")
         return 0
@@ -79,6 +124,7 @@ class sendMail:
     @staticmethod
     def sendGmail(usr_command):
         mail = []
+        file = 0
         splitedList = re.split("\s", usr_command)
         for i in splitedList:
             path = re.compile(r".*@.*")
@@ -86,28 +132,33 @@ class sendMail:
             for k in mailList:
                 a = k.group()
                 mail.append(a)
+        if "file" in splitedList:
+            file = 1
+        else:
+            file = 0
         try:
+
             if "shubha" in splitedList:
                 to = "shubhathakur@gmail.com"
-                sendMail.sendProcess(to)
+                sendMail.sendProcess(to, file)
             elif "vyabha" in splitedList:
                 to = "vyabhathakur@gmail.com"
-                sendMail.sendProcess(to)
+                sendMail.sendProcess(to, file)
             elif "aman" in splitedList:
                 to = "amanmrthakur@gmail.com"
-                sendMail.sendProcess(to)
+                sendMail.sendProcess(to, file)
             else:
                 a = 1 / 0
         except:
             j.speak("please enter destination email address :")
             to = input("")
-            sendMail.sendProcess(to)
+            sendMail.sendProcess(to, file)
         return 0
 
 
-class news:
+class News:
     @staticmethod
-    def newsOf(num):
+    def news_of(num):
         try:
             j.speak("News Of Today")
             url = "http://newsapi.org/v2/top-headlines?country=in&apiKey=35bdda38281e49258867bfbac2124d32"
@@ -128,13 +179,14 @@ class news:
 
 
 class playlist():
+    global o11
     @staticmethod
     def playlist(ipath, ival):
-        global t11, path, val
+        global o11,path, val
         path = ipath
         val = ival
 
-        class t11(Thread):
+        class Thread11(Thread):
             def run(self):
                 global val, path
                 # print(glob.glob(path))
@@ -151,5 +203,5 @@ class playlist():
                         playsound(song)
                 return 0
 
-        o11 = t11()
+        o11 = Thread11()
         o11.start()

@@ -1,2 +1,2 @@
-gmail = "jarrvism1@gmail.com"
-pwd = "8819840658"
+gmail = "artificialrobo1@gmail.com"
+pwd = "bot0987654321"
