@@ -226,5 +226,29 @@
 #     os.remove(file)
 #
 # respond("hello this is me your personal assistant")
-import datetime
-print(datetime.datetime.now().strftime("%d %B %Y"))
+#
+import re
+file = open('data/contact.vcf', 'r')
+contacts = []
+phone = []
+for line in file:
+    name = re.findall('FN:(.*)', line)
+    nm = ''.join(name)
+    if len(nm) == 0:
+        continue
+
+    data = {'name' : nm.strip()}
+    for lin in file:
+        tel = re.findall('TEL;CELL:(.*)', lin)
+        tel = ''.join(tel)
+
+        if len(tel) == 0:
+            continue
+
+        tel = tel.strip()
+        tel = ''.join(e for e in tel if e.isalnum())
+        data['phone'] = tel
+        break
+    contacts.append(data)
+
+print(contacts[2]['name'])
