@@ -23,18 +23,29 @@
 # obj.speak("this is me always for you from engine import Engine ModuleNotFoundError: No module named 'engine'")
 #######################################################
 import os
+# from threading import Thread
+
 import playsound
 from gtts import gTTS
 
 
 class JarvisSpeak():
     @staticmethod
-    def speak(output):
-        print(output)
-        # jarvis.ui.textBrowser_5.setText()
-        response = gTTS(text=output, lang='en-in')
+    def speak(audio):
+        # try:
+        print(str(audio))
+            # raise Exception
+
+        # obj20=Thread20()
+        # obj20.start()
+        # except Exception:
+            # class Thread20(Thread):
+            #     def run(self):
+        response = gTTS(text=audio, lang='en-in')
         file = "response.mp3"
         response.save(file)
         playsound.playsound(file, True)
         os.remove(file)
-        return 0
+            # if True:
+
+# obj=JarvisSpeak.speak("hello")

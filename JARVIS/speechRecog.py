@@ -3,8 +3,6 @@ from JARVIS.jarvisVoice import JarvisSpeak as j
 
 
 class speechRecog:
-    def __init__(self):
-        pass
     # @staticmethod
     # def take_command():
     #     j.speak("listening")
@@ -23,14 +21,12 @@ class speechRecog:
     #                 return usr_command
     #         except sr.UnknownValueError:
     #             print("try Again")
-
-    def take_command(self):
+    @staticmethod
+    def take_command():
         try:
-            usr_command = input("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tcommand :")
-            print("You said : "+usr_command)
+            usr_command = input("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tcommand :")
+            print("You said : " + usr_command)
             return usr_command
         except Exception as ex:
             print(ex)
             return 0
-
-

@@ -1,3 +1,8 @@
+import vlc
+import random
+import glob
+import requests
+import json
 import os.path
 from threading import Thread
 import datefinder
@@ -16,15 +21,51 @@ from JARVIS.jarvisVoice import JarvisSpeak as j
 from future.backports.email.mime.multipart import MIMEMultipart
 
 global cmd, index, alarmsec
-import json
-import requests
-import glob
-import random
-import vlc
+
+
+class Wtsp():
+    @staticmethod
+    def wtsp_num(contact_name):
+        j.speak(f"sending whatsapp to {contact_name}")
+        file = open('/home/aman/PycharmProjects/JARVIS/data/contact.vcf', 'r')
+        contacts = []
+        # phone = []
+        for line in file:
+            name = re.findall('FN:(.*)', line)
+            nm = ''.join(name)
+            if len(nm) == 0:
+                continue
+            name_ = nm.strip()
+            # print(name)
+            data = {'name': name_.lower()}
+            for lin in file:
+                tel = re.findall('TEL;CELL:(.*)', lin)
+                tel = ''.join(tel)
+
+                if len(tel) == 0:
+                    continue
+
+                tel = tel.strip()
+                # print(tel)
+                tel = ''.join(e for e in tel if e.isalnum())
+                data['phone'] = tel
+                break
+            contacts.append(data)
+
+        contact_name = contact_name.split(" ")
+        for name_dict in contacts:
+            for c_name in contact_name:
+                if name_dict['name'] == c_name:
+                    contact_num = name_dict['phone']
+                    return contact_num
+                else:
+                    pass
 
 
 # from JARVIS.closeModule import stop
 usr_obj = speechRecog()
+
+
 class Alarm():
     @staticmethod
     def setAlarm(i):
@@ -44,7 +85,8 @@ class Alarm():
                             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
                 hourNow = int(datetime.datetime.now().hour)
                 if int(dateStr[0]) == hourNow:
-                    alarmsec = (int(dateStr[1]) - int(datetime.datetime.now().minute)) * 60
+                    alarmsec = (
+                        int(dateStr[1]) - int(datetime.datetime.now().minute)) * 60
                 else:
                     alarmsec = (int(dateStr[1]) * 60)
                 newTimeList = timeList[hourNow:]
@@ -66,7 +108,7 @@ class Alarm():
 
 class sendMail:
     @staticmethod
-    #/home/aman/Pictures/chart.jpeg
+    # /home/aman/Pictures/chart.jpeg
     def sendProcess(to, file):
         def server_connection(content):
             server = smtplib.SMTP("smtp.gmail.com", 587)
@@ -94,9 +136,10 @@ class sendMail:
                 part = MIMEBase("application", 'octet-stream')
                 part.set_payload(attachment.read())
                 encoders.encode_base64(part)
-                part.add_header('Content-Disposition', 'attachment; filename="%s"'% filename)
+                part.add_header('Content-Disposition',
+                                'attachment; filename="%s"' % filename)
                 msg.attach(part)
-                text=msg.as_string()
+                text = msg.as_string()
                 server = smtplib.SMTP("smtp.gmail.com", 587)
                 server.ehlo()
                 server.starttls()
@@ -180,9 +223,10 @@ class News:
 
 class playlist():
     global o11
+
     @staticmethod
     def playlist(ipath, ival):
-        global o11,path, val
+        global o11, path, val
         path = ipath
         val = ival
 

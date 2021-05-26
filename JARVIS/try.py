@@ -227,28 +227,44 @@
 #
 # respond("hello this is me your personal assistant")
 #
-import re
-file = open('data/contact.vcf', 'r')
-contacts = []
-phone = []
-for line in file:
-    name = re.findall('FN:(.*)', line)
-    nm = ''.join(name)
-    if len(nm) == 0:
-        continue
+# import time
+#
+# import requests
+# from ipregistry import IpregistryClient
+#
+# client = IpregistryClient("tryout")
+# ipInfo = client.lookup()
+# print(ipInfo)
 
-    data = {'name' : nm.strip()}
-    for lin in file:
-        tel = re.findall('TEL;CELL:(.*)', lin)
-        tel = ''.join(tel)
+import requests
 
-        if len(tel) == 0:
-            continue
+import json
+#
+# send_url = "http://api.ipstack.com/check?access_key=2e5cc084aed1721597ed30a2b5219112"
+# geo_req = requests.get(send_url)
+# geo_json = json.loads(geo_req.text)
+# latitude = geo_json['latitude']
+# longitude = geo_json['longitude']
+# city = geo_json['city']
+# state=geo_json['region_name']
+# country = geo_json['country_name']
+# print(f"If i am not wrong, then you are in  .{city} {country} {geo_json}")
+# # {city}
 
-        tel = tel.strip()
-        tel = ''.join(e for e in tel if e.isalnum())
-        data['phone'] = tel
-        break
-    contacts.append(data)
-
-print(contacts[2]['name'])
+# import playsound
+# # # time.sleep(1)
+# playsound.playsound("/home/aman/PycharmProjects/JARVIS/data/female_laugh.wav")
+# # # time.sleep(3)
+# # playsound.playsound("/home/aman/PycharmProjects/JARVIS/data/short_haa.mp3")
+# # # time.sleep(3)
+# playsound.playsound("/home/aman/PycharmProjects/JARVIS/data/shy_femail.mp3")
+#
+# # print("Getting URL\n")
+# # url = "https://official-joke-api.appspot.com/random_ten"
+# joke = requests.get(url).text
+# news_dect = json.loads(joke)
+# # print(news_dect)
+# arts = news_dect
+# for article in arts:
+#    print(article['setup'])
+#    print(article['punchline'])sudo apt-get install -y python-pip; sudo pip install glances[gpu]

@@ -1,5 +1,5 @@
-from JARVIS.classesAndModule import playlist
-from JARVIS.jarvisVoice import JarvisSpeak as j
+from classesAndModule import playlist
+from jarvisVoice import JarvisSpeak as j
 
 
 class stop:

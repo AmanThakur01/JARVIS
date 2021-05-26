@@ -1,20 +1,22 @@
 import datetime
-import os
+# import os
+import json
 import sys
 import time
 import PyPDF2
 import instaloader
 # GUI
+import playsound
 from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtCore import QTime, QTimer, QDate, Qt
-from PyQt5.QtGui import QMovie
+# from PyQt5.QtGui import QMovie
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+# from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5.uic import loadUiType
+# from PyQt5.uic import loadUiType
 from jarvisgui import Ui_MainWindow
 #######
-import re
+# import re
 from JARVIS.closeModule import stop
 import subprocess
 import requests
@@ -23,16 +25,17 @@ import wikipedia
 import webbrowser
 from vlc import MediaPlayer
 from threading import Thread
-from JARVIS.classesAndModule import Alarm, sendMail, News, playlist
+from JARVIS.classesAndModule import Alarm, sendMail, News, playlist, Wtsp
 from JARVIS.jarvisVoice import JarvisSpeak as j
-import speech_recognition as sr
+# import speech_recognition as sr
 from JARVIS.speechRecog import speechRecog
 import pyautogui
 import pywhatkit as kit
 
-###############brain gui
-from contextlib import redirect_stdout
+# brain gui
+# from contextlib import redirect_stdout
 import io
+
 ###############
 
 old_cmd = ""
@@ -92,11 +95,11 @@ def store(cmd):
 #     except Exception as ex:
 #         print(ex)
 #         return 0
-global usr_obj,f
+global usr_obj, f
 
 
 class MainThread(Thread):
-    global usr_obj,f
+    global usr_obj, f
 
     # def __init__(self):
     #     super(MainThread, self).__init__()
@@ -110,15 +113,17 @@ class MainThread(Thread):
         while terminate < 1:
             usr_obj = speechRecog()
             usr_command = usr_obj.take_command()
-            with redirect_stdout(f):
-                # everything printed in here will go to f
-                terminate = brain(usr_command)
+            # with redirect_stdout(f):
+            # everything printed in here will go to f
+            terminate = brain(usr_command)
 
 
 def brain(usr_command):
     # print("brain of jarvis")
+    global usr_obj
 
     try:
+        ###################################                 COMMAND :   SEARCH
         if "search" in usr_command:
             if "youtube" in usr_command:
                 j.speak("Searching...")
@@ -154,6 +159,7 @@ def brain(usr_command):
                 # usr_command = str(usr_command) + add
                 # brain()
                 return 0
+        ###################################                 COMMAND :   TODAY
         elif "today" in usr_command:
             if "day" in usr_command:
                 j.speak("Today is " + datetime.datetime.now().strftime("%A"))
@@ -169,6 +175,7 @@ def brain(usr_command):
             elif "News" in usr_command:
                 News.news_of(5)
                 return 0
+        ###################################                 COMMAND :   PLAY
         elif "play" in usr_command:
             if usr_command.find("online") >= 0:
                 j.speak("Searching...")
@@ -228,6 +235,7 @@ def brain(usr_command):
             else:
                 j.speak("can't " + usr_command)
                 return 0
+        ###################################                 COMMAND :   CLOSE
         elif "close" in usr_command:
             # try:
             if "calculator" in usr_command:
@@ -279,9 +287,9 @@ def brain(usr_command):
         # except Exception:
         #     print(Exception)
         # return 0
-        else:
-
-            if usr_command.find("calculator") >= 0:
+        ###################################                 COMMAND :   OPEN
+        elif "open" in usr_command:
+            if "calculator" in usr_command >= 0:
                 j.speak("Opening Calculator...")
 
                 class Thread4(Thread):
@@ -292,12 +300,7 @@ def brain(usr_command):
                 o4 = Thread4()
                 o4.start()
                 return 0
-            elif "volume" in usr_command:
-                if "increase" in usr_command:
-                    playlist.playlist(ipath=None, ival=None)
-                else:
-                    playlist.playlist(ipath=None, ival=None)
-                return 0
+
             elif usr_command.find("calendar") >= 0:
                 j.speak("Opening calendar...")
 
@@ -309,13 +312,6 @@ def brain(usr_command):
                 o18 = Thread18()
                 o18.start()
                 return 0
-            elif usr_command.find("switch") >= 0 and (usr_command.find("tab") >= 0 or "window" in usr_command):
-                pyautogui.keyDown('alt')
-                pyautogui.press('tab')
-                time.sleep(0.5)
-                pyautogui.keyUp('alt')
-                return 0
-
             elif "libreoffice" in usr_command or "text writer" in usr_command:
                 j.speak("Opening Libreoffice ...")
 
@@ -350,6 +346,55 @@ def brain(usr_command):
 
                 o14 = Thread14()
                 o14.start()
+                return 0
+            elif usr_command.find("pycharm") >= 0:
+                j.speak("Opening Pycharm...")
+                pycharm = subprocess.Popen(
+                    "/snap/pycharm-community/222/bin/pycharm.sh")
+                stop.pycharm(pycharm, 1)
+                return 0
+
+            # elif "download" in usr_command:
+            #     j.speak("Opening Downloads...")
+            #     return 0
+            #     down = subprocess.Popen("/home/aman/Downloads/")
+
+            elif usr_command.find("netbeans") >= 0:
+                j.speak("Opening Netbeans...")
+
+                class Thread10(Thread):
+                    def run(self):
+                        net = subprocess.Popen(
+                            "/usr/local/netbeans-8.2/bin/netbeans")
+                        stop.netbeans(net, 1)
+
+                o10 = Thread10()
+                o10.start()
+                return 0
+            elif usr_command.find("youtube") >= 0 and usr_command.find("music") >= 0:
+                j.speak("Playing music...")
+                usr = usr_command.replace("play", "")
+                usr = usr.replace("music", "")
+                usr = usr.replace("youtube", "")
+
+                class Thread17(Thread):
+                    def run(self):
+                        webbrowser.open(
+                            "https://music.youtube.com/search?q=" + usr)
+
+                o17 = Thread17()
+                o17.start()
+                return 0
+            elif usr_command.find("google") >= 0 or usr_command.find("chrome") >= 0:
+                j.speak("Opening google chrome...")
+
+                class Thread3(Thread):
+                    def run(self):
+                        g = subprocess.Popen("/usr/bin/google-chrome")
+                        stop.chrome(g, 1)
+
+                o3 = Thread3()
+                o3.start()
                 return 0
 
             elif "youtube" in usr_command:
@@ -407,20 +452,6 @@ def brain(usr_command):
                 o15 = Thread15()
                 o15.start()
                 return 0
-            elif "read pdf" in usr_command:
-                book = open(
-                    '/home/aman/Documents/Assignment-210329-183610.pdf', 'rb')
-                pdf_read = PyPDF2.PdfFileReader(book)
-                pages = pdf_read.getNumPages()
-                j.speak(f"PDF contain {pages} Number of pages")
-                j.speak("Sir ,Please enter page number which I want to read")
-                pg = int(input("Enter hear:"))
-                page = pdf_read.getPage(pg)
-                text = page.extractText()
-                # j.speak(text)
-                print(text.encode('utf-8'))
-                return 0
-
             elif "gedit" in usr_command or "text editor" in usr_command:
                 j.speak("Opening gedit text editor ...")
 
@@ -444,6 +475,91 @@ def brain(usr_command):
                 o5 = Thread5()
                 o5.start()
                 return 0
+            elif "system setting" in usr_command:
+                j.speak("opening setting")
+                subprocess.Popen("/usr/bin/gnome-control-center")
+                return 0
+
+            elif usr_command.find("system monitor") >= 0:
+                j.speak("Opening system-monitor...")
+
+                class Thread2(Thread):
+                    def run(self):
+                        moni = subprocess.Popen("gnome-system-monitor")
+                        stop.monitor(moni, 1)
+
+                o2 = Thread2()
+                o2.start()
+                return 0
+            elif "steam" in usr_command:
+                print("Opening steam...")
+
+                class Thread9(Thread):
+                    def run(self):
+                        steam = subprocess.Popen(
+                            "/home/aman/.steam/steam.sh")
+                        stop.steam(steam, 1)
+
+                o9 = Thread9()
+                o9.start()
+                return 0
+        ###################################                 COMMAND :   ELSE
+        else:
+
+            ##############                                  COMMUNICATION SKILL
+            if "hello" in usr_command or "hii" in usr_command:
+                j.speak("hello sir, how are you")
+                return 0
+            elif "fine" in usr_command:
+                j.speak("I am happy to hear sir")
+                return 0
+            elif "nice" in usr_command:
+                j.speak("thank you sir")
+                return 0
+            ###############################################
+            elif "joke" in usr_command:
+                urlj = "https://official-joke-api.appspot.com/random_ten"
+                joke = requests.get(urlj).text
+                joke_dect = json.loads(joke)
+                # print(news_dect)
+                joke_line = joke_dect
+                for article in joke_line:
+                    j.speak(article['setup'])
+                    time.sleep(2)
+                    j.speak(article['punchline'])
+                    time.sleep(1)
+                    playsound.playsound("/home/aman/PycharmProjects/JARVIS/data/shy_femail.mp3")
+                    break
+                return 0
+
+            elif "volume" in usr_command:
+                if "increase" in usr_command:
+                    playlist.playlist(ipath=None, ival=None)
+                else:
+                    playlist.playlist(ipath=None, ival=None)
+                return 0
+
+            elif usr_command.find("switch") >= 0 and (usr_command.find("tab") >= 0 or "window" in usr_command):
+                pyautogui.keyDown('alt')
+                pyautogui.press('tab')
+                time.sleep(0.5)
+                pyautogui.keyUp('alt')
+                return 0
+
+            elif "read pdf" in usr_command:
+                book = open(
+                    '/home/aman/Documents/Assignment-210329-183610.pdf', 'rb')
+                pdf_read = PyPDF2.PdfFileReader(book)
+                pages = pdf_read.getNumPages()
+                j.speak(f"PDF contain {pages} Number of pages")
+                j.speak("Sir ,Please enter page number which I want to read")
+                pg = int(input("Enter hear:"))
+                page = pdf_read.getPage(pg)
+                text = page.extractText()
+                # j.speak(text)
+                print(text.encode('utf-8'))
+                return 0
+
             elif "send" in usr_command and ("send gmail" in usr_command or "send email" in usr_command
                                             or "send mail" in usr_command or usr_command.find("file") >= 0):
                 sendMail.sendGmail(usr_command)
@@ -458,36 +574,24 @@ def brain(usr_command):
             # pywhatkit.cancelShutdown()  # Will cancel the scheduled shutdown
             # kit.playonyt()
 
-            elif ("whatsapp" or "message" and "send") in usr_command:
-
-                file = open('data/contact.vcf', 'r')
-                contacts = []
-                # phone = []
-                for line in file:
-                    name = re.findall('FN:(.*)', line)
-                    nm = ''.join(name)
-                    if len(nm) == 0:
-                        continue
-
-                    data = {'name': nm.strip()}
-                    for lin in file:
-                        tel = re.findall('TEL;CELL:(.*)', lin)
-                        tel = ''.join(tel)
-
-                        if len(tel) == 0:
-                            continue
-
-                        tel = tel.strip()
-                        tel = ''.join(e for e in tel if e.isalnum())
-                        data['phone'] = tel
-                        break
-                    contacts.append(data)
-
+            elif ("whatsapp" or "message") in usr_command:
                 j.speak("sir ,To whom should i send")
-                contact_name=usr_obj.take_command()
+                # print("Enter Contact Name:")
+                contact_name = input("Enter Contact Name:")
+                contact_name = contact_name.lower()
+                contact_num = Wtsp.wtsp_num(contact_name)
+                print("number:+", contact_num)
 
-                kit.sendwhatmsg(f"+{contact_name}", "hello this is me")
-                j.speak("Message will send shortly")
+                class Thread21(Thread):
+                    def run(self):
+                        kit.sendwhatmsg(f"+{contact_num}", "Just ignore this message")
+                        j.speak("Message sent")
+                        time.sleep(5)
+                        raise Exception
+
+                object21 = Thread21()
+                object21.start()
+
                 return 0
 
             elif "alarm" in usr_command:
@@ -516,22 +620,6 @@ def brain(usr_command):
                 j.speak("This is all about...Properties")
                 return 0
 
-            elif "system setting" in usr_command:
-                j.speak("opening setting")
-                subprocess.Popen("/usr/bin/gnome-control-center")
-                return 0
-            elif usr_command.find("system monitor") >= 0:
-                j.speak("Opening system-monitor...")
-
-                class Thread2(Thread):
-                    def run(self):
-                        moni = subprocess.Popen("gnome-system-monitor")
-                        stop.monitor(moni, 1)
-
-                o2 = Thread2()
-                o2.start()
-                return 0
-
             elif "time" in usr_command:
                 j.speak(
                     "The time is " + str(datetime.datetime.now().strftime("%H hour and %M minutes")))
@@ -555,23 +643,13 @@ def brain(usr_command):
             elif "again" in usr_command or "once more" in usr_command:
                 global old_cmd
                 print(old_cmd)
-                brain(usr_command)
+                brain(old_cmd)
                 return 0
-            elif "steam" in usr_command:
-                print("Opening steam...")
 
-                class Thread9(Thread):
-                    def run(self):
-                        steam = subprocess.Popen(
-                            "/home/aman/.steam/steam.sh")
-                        stop.steam(steam, 1)
-
-                o9 = Thread9()
-                o9.start()
-                return 0
             elif "mute" in usr_command or "quite" in usr_command or "shutup" in usr_command or "sleep" in usr_command:
                 j.speak("ok sir ,press key to wake me...")
                 x = input()
+                j.speak("Initiating system... \n i am ready, always for you sir")
                 return 0
             elif "wikipedia" in usr_command:
                 try:
@@ -583,55 +661,7 @@ def brain(usr_command):
                     print("Sir Please check your internet connection!")
                 return 0
 
-            elif usr_command.find("pycharm") >= 0:
-                j.speak("Opening Pycharm...")
-                pycharm = subprocess.Popen(
-                    "/snap/pycharm-community/222/bin/pycharm.sh")
-                stop.pycharm(pycharm, 1)
-                return 0
 
-            # elif "download" in usr_command:
-            #     j.speak("Opening Downloads...")
-            #     return 0
-            #     down = subprocess.Popen("/home/aman/Downloads/")
-
-            elif usr_command.find("netbeans") >= 0:
-                j.speak("Opening Netbeans...")
-
-                class Thread10(Thread):
-                    def run(self):
-                        net = subprocess.Popen(
-                            "/usr/local/netbeans-8.2/bin/netbeans")
-                        stop.netbeans(net, 1)
-
-                o10 = Thread10()
-                o10.start()
-                return 0
-            elif usr_command.find("youtube") >= 0 and usr_command.find("music") >= 0:
-                j.speak("Playing music...")
-                usr = usr_command.replace("play", "")
-                usr = usr.replace("music", "")
-                usr = usr.replace("youtube", "")
-
-                class Thread17(Thread):
-                    def run(self):
-                        webbrowser.open(
-                            "https://music.youtube.com/search?q=" + usr)
-
-                o17 = Thread17()
-                o17.start()
-                return 0
-            elif usr_command.find("google") >= 0 or usr_command.find("chrome") >= 0:
-                j.speak("Opening google chrome...")
-
-                class Thread3(Thread):
-                    def run(self):
-                        g = subprocess.Popen("/usr/bin/google-chrome")
-                        stop.chrome(g, 1)
-
-                o3 = Thread3()
-                o3.start()
-                return 0
 
             elif usr_command.find("quit jarvis") >= 0 or usr_command.find("good bye") >= 0 or usr_command.find(
                     "exit jarvis") >= 0 or usr_command.find("close jarvis") >= 0 or usr_command.find(
@@ -669,16 +699,16 @@ def brain(usr_command):
                 j.speak(num1)
                 return 0
             elif usr_command.find("location") >= 0 or usr_command.find("where i am") >= 0:
-                j.speak("Wait sir, let me check")
-                ip_add = requests.get('https://api.ipify.org').text
-                url = 'https://get.geojs.io/v1/ip/geo/' + ip_add + ".json"
-                geo_requests = requests.get(url)
-                geo_data = geo_requests.json()
-                city = geo_data['city']
-                # state=geo_data['state']
-                country = geo_data['country']
-                j.speak(
-                    f"If i am not wrong, then you are in  .{city}. {country}")
+                send_url = "http://api.ipstack.com/check?access_key=2e5cc084aed1721597ed30a2b5219112"
+                geo_req = requests.get(send_url)
+                geo_json = json.loads(geo_req.text)
+                # latitude = geo_json['latitude']
+                # longitude = geo_json['longitude']
+                city = geo_json['city']
+                state = geo_json['region_name']
+                country = geo_json['country_name']
+                # print(f"If i am not wrong, then you are in  .{city} {country} {geo_json}")
+                j.speak(f"If i am not wrong, then you are in  .{city}. {state} .{country}")
                 return 0
 
             elif usr_command.find("multiply") >= 0 or usr_command.find("*") >= 0:
@@ -700,10 +730,10 @@ def brain(usr_command):
             else:
                 j.speak("Sorry! sir ,Can you speak again")
                 return 0
-    except TypeError as et:
-        j.speak("Sorry! sir, an ERROR occupied, Try Something else.")
-        print("ERROR " + str(et))
-        return 0
+    # except TypeError as et:
+    #     j.speak("Sorry! sir, an ERROR occupied, Try Something else.")
+    #     print("ERROR " + str(et))
+    #     return 0
     finally:
         store(usr_command)
 
@@ -713,6 +743,7 @@ startExecution = MainThread()
 
 class Main(QMainWindow):
     global f
+
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -723,11 +754,13 @@ class Main(QMainWindow):
 
     def startjarvis(self):
         # main gif run
-        self.ui.movie = QtGui.QMovie("data/mainf.gif")
+        self.ui.movie = QtGui.QMovie(
+            "/home/aman/PycharmProjects/JARVIS/data/mainf.gif")
         self.ui.label_2.setMovie(self.ui.movie)
         self.ui.movie.start()
         # initlization gif run
-        self.ui.movie = QtGui.QMovie("data/inslization.gif")
+        self.ui.movie = QtGui.QMovie(
+            "/home/aman/PycharmProjects/JARVIS/data/inslization.gif")
         self.ui.label_3.setMovie(self.ui.movie)
         self.ui.movie.start()
 
@@ -740,14 +773,17 @@ class Main(QMainWindow):
         global f
         # datetime.datetime.now().strftime("%H hour and %M minutes")
         # textbox=background:transparent;\nfont: 75 11pt "Purisa";\ncolor:white;
-        self.ui.textBrowser_2.setText(datetime.datetime.now().strftime("%H:%M"))  #:%S
+        self.ui.textBrowser_2.setText(
+            datetime.datetime.now().strftime("%H:%M"))  # :%S
         self.ui.textBrowser_3.setText(datetime.datetime.now().strftime("%A"))
         self.ui.textBrowser.setText(datetime.datetime.now().strftime("%B %Y"))
         self.ui.textBrowser_4.setText(datetime.datetime.now().strftime("%d"))
         self.ui.textBrowser_5.setText(datetime.datetime.now()
-                                      .strftime(f"{arts}|{str(round(temperature - 273.15))}" +
-                                                u"\N{DEGREE SIGN}C|" + f"Humidity-{humidity}"))
+                                      .strftime(f"{arts}   |  {str(round(temperature - 273.15))}" +
+                                                u"\N{DEGREE SIGN}C   | " + f" Humidity-{humidity}"))
         # self.ui.textBrowser_6.append(f.getvalue())
+
+
 # global jarvis
 
 app = QApplication(sys.argv)
@@ -776,3 +812,4 @@ exit(app.exec_())
 #         continue
 # thanks jarvis
 # you can sleep
+#
