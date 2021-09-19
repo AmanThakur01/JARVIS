@@ -10,16 +10,19 @@ import numpy as np
 # -5x + 9y = 26
 
 
-A = np.array([[4, 3],
+A1 = np.array([[4, 3],
               [-5, 9]])
 
-B = np.array([20, 26])
-X2 = np.linalg.inv(A).dot(B)
-print(X2)
+B1 = np.array([20, 26])
+X2 = np.linalg.inv(A1).dot(B1)
+print("A1&B1 = ",X2)
 
 # ___________________________________________________________________for 3 equations
 A = np.array([[4, 3, 2], [-2, 2, 3], [3, -5, 2]])
 B = np.array([25, -10, -4])
 X3 = np.linalg.inv(A).dot(B)
 
-print(X3)
+print("A&B=",X3)
+
+s=np.square(A)
+print("sqr= ",s)

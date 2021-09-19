@@ -1,6 +1,6 @@
 import numpy as np
 
-a = np.array([[3, 1], [2, 2]])
+a = np.array([[8, -6,2], [-6, 7,-4],[2,-4,3]])
 w, v = np.linalg.eig(a)
 
 print("value:",w)
